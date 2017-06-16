@@ -32,13 +32,13 @@ $ git commit -m "add a readme file"
 	$ git log
 	
 
-			________add________     ____commit______
-		   |				   |   |				|
-		   |				  \/   |			   \/
+                ________add________     ____commit______
+               |                   |   |                |
+               |                  \/   |                \/
 	working Directory <==> stage(index) <==>repository(HEAD)
-		  /\				   |   /\               |
-		   |                   |    |               |
-		   ------checkout-------    ------reset------
+              /\                   |   /\               |
+               |                   |    |               |
+               -----checkout-------      -----reset------
 		   
 		   
 $ git reset --mixed HEAD~

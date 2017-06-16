@@ -1,0 +1,121 @@
+学习git
+下载git for windows
+下载tortoisegit(还可以下载中文语言包)
+
+git的工作流程
+	1.在工作目录中添加、修改文件
+	2.将需要进行版本管理的文件放入暂存区域
+	3.将暂存区域的文件提交到git
+git管理的文件有三种状态:
+	1.已修改(modified)
+	2.已暂存(staged)
+	3.已提交(committed)
+
+$ git init
+$ git add README.md
+	添加到暂存区域
+$ git commit -m "add a readme file"
+	添加到仓库""里是提交说明
+
+将工作目录的问价放到git仓库只需要两步：
+	$ git add filename
+	$ git commit -m "你干了啥"
+
+查看状态：
+	$ git status
+撤销（回退版本）：
+	$ git reset HEAD
+
+	$ git checkout -- LICENSE
+	
+查看历史提交：
+	$ git log
+	
+
+			________add________     ____commit______
+		   |				   |   |				|
+		   |				  \/   |			   \/
+	working Directory <==> stage(index) <==>repository(HEAD)
+		  /\				   |   /\               |
+		   |                   |    |               |
+		   ------checkout-------    ------reset------
+		   
+		   
+$ git reset --mixed HEAD~
+	-移动HEAD的指向，将其指向上一个快照
+	-将HEAD移动后指向的快照滚回到暂存区域
+$ git reset --soft HEAD~
+	-移动HEAD的指向，将其指向上一个快照
+$ git reset __hard HEAD~
+	-移动HEAD的指向，将其指向上一个快照
+	-将HEAD移动后指向的快照滚回到暂存区域
+	-将暂存区域的文件还原到工作目录
+	
+reset命令回滚快照三部曲
+	1.移动HEAD的指向（--soft)
+	2.将快照回滚到暂存区域([--mixed],默认)
+	3.将暂存区域还原到工作目录(--hard)
+
+也可以指定快照ID，回滚个别文件
+	$ git reset 版本快照的ID号
+		commit 542eb145e58646623db8016fd75ca8956917b083 (HEAD -> master)
+		Author: zhiweifan <zhiweifan@outlook.com>
+		Date:   Thu Jun 15 10:08:53 2017 +0800
+
+	
+比较暂存区域和工作目录：
+	$ git diff
+比较两个历史快照
+	$ git diff 历史快照1 历史快照2
+比较当前工作目录和git仓库中的快照
+	$ git diff 快照ID
+比较暂存区域和git仓库快照
+	$ git diff --cached 快照ID
+
+修改最后一次提交：
+	在实际开发中，你可能会遇到以下两种情景：
+	-情景1：版本刚一提交(commit)到仓库，突然想起漏掉两个文件还没有添加(add)。
+	-情景2：版本刚一提交(commit)到仓库，突然想起版本说明写得不够全面，无法彰显你本次修改的重大意义。
+
+执行带 --amend选项的commit提交命令，git就会"更正"最近一次提交。
+	git commmit --amend 
+
+删除文件：
+	$ git rm 文件名
+	-该命令删除的只是工作目录和暂存区域的文件，也就是取消跟踪，在下次提交时不纳入版本管理。
+	-当工作目录和暂存区域的同一个文件存在不同内容时，执行git rm -f 文件名 命令就可以把两个都删除。
+	-如果只删除暂存区域的文件（保留工作目录的），那么你可以执行git rm --cached 文件名 命令实现目的。
+	-但是提交到仓库的文件不会变。所有：
+	$ git reset --soft HEAD~
+	
+	$ git rm --cached 文件名
+删除恢复到工作目录：
+	$ git checkout -- 文件名
+	
+重命名文件：
+	$ git mv 旧的文件名 新的文件名
+	
+创建和切换分支：
+	其他版本控制系统的分支：
+		克隆一份全新的目录以同样拥有5个分支来说，SVN是同时负责5个版本的文件，也就是说重复5尺同样的动作。
+		而git只是获取文件的每个版本的元素，然后只载入主要的分支(master)，克隆一个拥有将近一万个体检(commit)，
+		5个分支，每个分支有大约1500个文件的SVN，耗了将近1小时，而git只用了区区1分钟。
+创建分支：
+	$ git branch 分支名称
+	$ git log --decorate
+切换分支：
+	$ git checkout 分支名
+	
+	查看： $ git log --decorate --oneline --all
+		
+合并和删除分支：
+	合并分支：
+	$ git merge 分支名
+		
+	删除分支：
+	$ git branch -d 分支名
+		
+匿名分支和checkout命令：
+	
+
+	
